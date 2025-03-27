@@ -1,0 +1,15 @@
+[project]
+name = "gpr-on-point-cloud"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "gpytorch>=1.14",
+    "ipykernel>=6.29.5",
+    "open3d>=0.19.0",
+    "plotly>=6.0.1",
+    "robust-laplacian>=1.0.0",
+    "scipy>=1.15.2",
+    "torch>=2.6.0",
+]
