@@ -17,12 +17,13 @@ git clone https://github.com/lucabeber/gpr-on-point-cloud.git
 cd gpr-on-point-cloud
 ```
 
+If you are using uv environment manager, you can create a virtual environment and install the library with the following commands:
+
 ```bash
-pip install -r pyproject.toml
+uv sync
 ```
 
-
-
+Otherwise, you can install the required dependencies manually.
 
 ## Usage
 
@@ -41,7 +42,9 @@ Here you can see the reconstruction of the distribution on a point cloud.
 | Plate with different shapes               | Reconstriction of the shapes              |
 
 
-
+| ![Image 1](images/real_bun.png) | ![Image 2](images/gpr_bun.png) |
+|-------------------------|------------------------|
+| Bunny with the X              | Reconstriction of the X             |
 
 ## License
 

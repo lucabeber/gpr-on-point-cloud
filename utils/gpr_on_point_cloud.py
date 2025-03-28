@@ -71,7 +71,16 @@ class RBF_RM(gpytorch.kernels.Kernel):
             kernel_matrix = torch.zeros(x1.size(0), x2.size(0), dtype=torch.float32)  # Initialize kernel matrix
 
             if kernel_matrix.is_cuda:
-                kernel_matrix = self.kernel_matrix_pc[neig_x1[:, None], neig_x2[None, :]]
+                try:
+                    kernel_matrix = self.kernel_matrix_pc[neig_x1[:, None], neig_x2[None, :]]
+                except RuntimeError as e:
+                    if "CUDA out of memory" in str(e):
+                        print("CUDA out of memory, switching to CPU for this operation.")
+                        kernel_matrix = kernel_matrix.to("cpu")
+                        kernel_matrix = self.kernel_matrix_pc.cpu()[neig_x1[:, None].cpu(), neig_x2[None, :].cpu()]
+                        kernel_matrix = kernel_matrix.to(device)
+                    else:
+                        raise e
             else:
                 kernel_matrix = self.kernel_matrix_pc[neig_x1[:, None].cpu(), neig_x2[None, :].cpu()]
 
