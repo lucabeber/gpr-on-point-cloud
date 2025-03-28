@@ -28,6 +28,19 @@ pip install -r pyproject.toml
 
 An example on how to use this library is provided in [example.py](example.py). 
 
+## Results
+Here you can see the reconstruction of the distribution on a point cloud. 
+
+| ![Image 1](images/real_cup.png) | ![Image 2](images/gpr_cup.png) |
+|-------------------------|------------------------|
+| Cup with a red X draw on it               | Reconstruction of the X             |
+
+
+| ![Image 1](images/real_plate.png) | ![Image 2](images/plate_gpr.png) |
+|-------------------------|------------------------|
+| Plate with different shapes               | Reconstriction of the shapes              |
+
+
 
 
 ## License
