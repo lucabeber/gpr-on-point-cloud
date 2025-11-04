@@ -109,10 +109,10 @@ def plot_point_cloud(points, point_colors=None, **kwargs):
         z=points[:, 2],
         mode='markers',
         marker=dict(
-            size=2,
+            size=5,
             color=point_colors,
-            colorscale='Inferno',
-            opacity=0.8,
+            colorscale='Viridis',  # A color scale that works well with white backgrounds
+            opacity=1.0,
             showscale=True
         ),
         **kwargs
@@ -127,10 +127,10 @@ def update_figure(fig):
     # fig.update_traces(showscale=False, hoverinfo="none")
     fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
 
-    fig.update_layout(
-        plot_bgcolor="black",  # Set the plot background to black
-        paper_bgcolor="black",  # Set the paper background to black
-    )
+    # fig.update_layout(
+    #     plot_bgcolor="black",  # Set the plot background to black
+    #     paper_bgcolor="black",  # Set the paper background to black
+    # )
     fig.update_layout(
         scene=dict(
             xaxis=dict(showbackground=False, showticklabels=False, visible=False),

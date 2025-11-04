@@ -8,23 +8,23 @@ print("Using device: ", device)
 torch.set_default_device(device)
 
 point_cloud_dir = "point_clouds/"
-obj_name = "plate_shapes"
+obj_name = "bun270_X"
 
-l = 0.003
+l = 0.002
 sigma = 1.0
 n_eig = 200
 
 hypers = {
     "lengthscale": l,
     "outputscale": 1.0,
-    "noise": 0.1,
+    "noise": 0.001,
     "mean": 0.0
 }
 
 filename = f"{point_cloud_dir}{obj_name}.ply"
 pcd_tmp = o3d.io.read_point_cloud(filename)
 
-pcd = pcd_tmp.voxel_down_sample(voxel_size=0.002)  # downsample
+pcd = pcd_tmp.voxel_down_sample(voxel_size=0.001)  # downsample
 
 vertices = np.asarray(pcd.points)
 colors = np.asarray(pcd.colors)[:, 0]
@@ -43,7 +43,7 @@ train_x_real = torch.tensor(vertices, dtype=torch.float32)
 train_y_real = torch.tensor(colors, dtype=torch.float32) 
 indices = torch.randperm(train_x_real.size()[0])
 
-train_size = int(0.1 * train_x_real.size()[0])
+train_size = int(0.3 * train_x_real.size()[0])
 train_indices = indices[:train_size]
 test_indices = indices[train_size:]
 
@@ -55,7 +55,7 @@ train_y, test_y = train_y_real[train_indices], train_y_real[test_indices]
 likelihood = gpytorch.likelihoods.GaussianLikelihood()
 model = GPROnPointCloud(train_x, train_y, likelihood, km, vertices)
 
-model.likelihood.noise_covar.noise = hypers["noise"]
+# model.likelihood.noise_covar.noise = hypers["noise"]
 
 # set to training mode and train
 model.train()
@@ -116,7 +116,7 @@ likelihood_real.train()
 
 model_real.covar_module.base_kernel.lengthscale = hypers["lengthscale"]
 model_real.covar_module.outputscale = hypers["outputscale"]
-model_real.likelihood.noise_covar.noise = hypers["noise"]
+# model_real.likelihood.noise_covar.noise = hypers["noise"]
 # model_real.mean_module.constant = hypers["mean"]
 
 
